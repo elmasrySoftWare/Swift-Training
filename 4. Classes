@@ -1,0 +1,96 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground: Classes"
+
+
+class Person {
+    let name:String // use let because never change
+    var age:Int
+    var nickname:String?
+    
+    init(name: String, age: Int, nickname:String? = nil) {
+        self.name = name
+        self.age = age
+        self.nickname = nickname
+    }
+}
+
+
+var personOne = Person(name: "John", age: 26)
+var personTwo = Person(name: "Fred", age: 36, nickname: "T-Bone")
+
+personOne.age
+personOne.nickname
+
+class Mutant: Person {
+    var level:Int
+    var superPower:String
+    
+    init(name: String, age: Int, level:Int, superPower:String, nickname:String? = nil) {
+        self.level = level
+        self.superPower = superPower
+        super.init(name: name, age: age, nickname: nickname)
+    }
+    
+    func isMorePowerfull(mutant: Mutant) -> Bool {
+        return (level > mutant.level)
+    }
+}
+
+var jim = Mutant(name: "Jim Neutron", age: 23, level: 7, superPower: "Flight", nickname: "Flying Jim")
+var janet = Mutant(name: "Janet Jackson", age: 32, level: 8, superPower: "Telepathy", nickname: "The Brainac")
+
+janet.isMorePowerfull(jim)
+
+
+////////////////////////
+
+
+class SomeClass {
+    
+    class func typeMethod(#string: String) -> String // static method or class method
+    {
+        return string + "_ModifiedInClassMethod"
+    }
+}
+
+var strToMofify: String = "Happy String"
+
+SomeClass.typeMethod(string: strToMofify)
+
+
+
+////////////////////////
+
+
+class SimpleClass {
+    var stringProperty = "My String"
+}
+
+let variableOne:SimpleClass = SimpleClass()
+
+variableOne.stringProperty = "Hello World"
+
+let variableTwo = variableOne
+
+variableOne.stringProperty = "Changed"
+variableTwo.stringProperty // if i change variableOne value also modify variableTwo value
+
+
+///////////////
+
+
+class AnotherSimpleClass {
+    
+    var rect:CGRect = CGRect(x: 0.0, y: 0.0, width: 100, height: 1000)
+}
+
+var newAnotherSimpleClass = AnotherSimpleClass()
+
+newAnotherSimpleClass.rect.size.height = 200
+
+newAnotherSimpleClass.rect.size.height
+
+newAnotherSimpleClass.rect.origin.x = 10
