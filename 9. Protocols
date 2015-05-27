@@ -1,0 +1,218 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground: PROTOCOLS"
+
+
+protocol MyProtocol {
+    var someProp:String { get set }
+}
+
+class AdopterClass: MyProtocol {
+    var someProp:String
+    
+    init (someProp:String){
+        self.someProp = someProp
+    }
+}
+
+///////////////////
+
+protocol SerialCodable {
+    var serialCode:String { get set }
+}
+
+class Book: SerialCodable {
+    var serialCode:String
+    
+    init(serialCode:String) {
+        self.serialCode = serialCode
+    }
+}
+
+var LOR = Book(serialCode: "1131151513213311231")
+
+
+///////////////////
+
+
+protocol Humanizable {
+    func eat()
+    static func drink(howMuch:Int) -> Bool
+}
+
+class Human: Humanizable {
+    func eat() {
+        println("The human is eating right now")
+    }
+    
+    static func drink(howMuch: Int) -> Bool {
+        println("The human drank \(howMuch) cups of water")
+        return true
+    }
+}
+
+var fred = Human()
+
+fred.eat()
+Human.drink(3)
+
+
+/////////////////////
+
+
+protocol Toggleable {
+    mutating func toggle()
+}
+
+enum OnOffSwitch:Toggleable {
+    case Off, On
+    
+    mutating func toggle() {
+        switch self {
+            case .Off:
+                self = On
+            case .On:
+                self = Off
+        }
+    }
+}
+
+var wallSwitch = OnOffSwitch.Off
+
+wallSwitch == OnOffSwitch.Off
+
+
+wallSwitch.toggle()
+
+wallSwitch == OnOffSwitch.Off
+wallSwitch == OnOffSwitch.On
+
+
+///////////////////
+
+
+protocol Walkable {
+    var name:String { get set }
+    func walk(#steps:Int)
+}
+
+class OneHuman:Walkable {
+    var name = "human"
+    func walk(#steps: Int) {
+        println("The \(self.name) is walking \(steps) steps")
+    }
+}
+
+class Dog:Walkable {
+    var name:String = "dog"
+    func walk(#steps: Int) {
+        println("Walking the \(self.name) \(steps) steps")
+    }
+    
+    func bark() {
+        println("Woof")
+    }
+}
+
+class PlayTime {
+    func takeAWalk(walkable:Walkable) {
+        println("Taking the \(walkable.name) for a walk")
+        walkable.walk(steps: 10)
+        
+        if walkable is Dog {
+            println("Was a dog")
+        } else {
+            println("Was not a dog")
+        }
+        
+        if let dog = walkable as? Dog {
+            dog.bark()
+        }
+    }
+}
+
+var playTime = PlayTime()
+var dog = Dog()
+var oneHuman = OneHuman()
+
+playTime.takeAWalk(dog)
+
+
+//////////////////////////
+
+
+var mixedArray:[AnyObject] = ["3", 2, 1, dog]
+
+for something in mixedArray {
+    if something is Dog {
+        println("There was a dog")
+    }
+}
+
+
+/////////////////////////
+
+    
+protocol Exercisable: Walkable {
+        func run(#miles:Double)
+}
+
+class TrackStar:Exercisable {
+    var name = "human"
+    
+    func walk(#steps: Int) {
+        // func implemented by walkable
+    }
+    
+    func run(#miles: Double) {
+        // func implemented by exercisable
+    }
+}
+
+
+///////////////////////
+
+
+protocol Joggable {
+    func jog(#miles:Double)
+}
+
+func exercizeRoutine(exerciser: protocol<Walkable, Joggable>) {
+    exerciser.jog(miles: 5.2)
+    exerciser.walk(steps: 5000)
+}
+
+
+/////////////////////////
+
+
+@objc protocol Likeable {
+    optional func smile() -> String // optional makes func optional
+}
+
+class HappyEmotion:Likeable {
+    func smile() -> String {
+        return "Smiling"
+    }
+}
+
+class Person: Walkable {
+    var name:String = "Phred"
+    func walk(#steps: Int) {
+        // steps
+    }
+    
+    func currentMood(likeable:Likeable?) { // mark Likeable? because Likeable is an optional method
+        if let greeting = likeable?.smile?() { // .smile?() because smile() is optional
+            println("\(greeting)")
+        }
+    }
+}
+
+var phred = Person()
+var happiness = HappyEmotion()
+
+phred.walk(steps: 5000)
+phred.currentMood(happiness)
