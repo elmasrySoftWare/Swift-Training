@@ -1,0 +1,70 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground: STRUCTS"
+
+
+struct GeoPoint {
+    var latitude = 0.0
+    var longitude = 0.0
+}
+
+var newGeopoint = GeoPoint()
+newGeopoint.latitude = 42.89
+newGeopoint.longitude = -12.45
+
+var memberWiseGeoPoint = GeoPoint(latitude: 12.34, longitude: 45.37)
+
+struct Point {
+    var x:Int, y:Int
+}
+
+struct Size {
+    var with:Int, height:Int
+}
+
+struct Rect {
+    var origin:Point, size:Size
+    
+    func center() -> Point {
+        var x = origin.x + (size.with / 2)
+        var y = origin.y + (size.height / 2)
+        
+        return Point(x: x, y: y)
+    }
+}
+
+var origin = Point(x: 0, y: 0)
+var size = Size(with: 100, height: 100)
+var rect = Rect(origin: origin, size: size)
+
+rect.size.with = 80
+
+var center = rect.center()
+
+var pointOne = Point(x: 10, y: 10)
+
+var pointTwo = pointOne
+
+pointTwo.x = 20
+
+pointOne.x
+pointTwo.x
+
+
+/////////////////////
+
+struct Foo {
+    var someProperty = 0.0
+    
+    mutating func incrementSomeProperty(increment: Double = 1) {
+        self.someProperty += increment
+    }
+}
+
+var myFoo = Foo()
+myFoo.incrementSomeProperty()
+myFoo.someProperty
+myFoo.incrementSomeProperty(increment: 2.0)
+myFoo.someProperty
