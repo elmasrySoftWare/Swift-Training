@@ -1,0 +1,139 @@
+import UIKit
+
+
+var str = "Hello, playground: FUNCTIONS"
+
+
+
+func sayHello() {
+    println("Hello")
+}
+
+func sayHelloTo1(nameOfPerson name:String) { // nameOfPerson is external and name internal
+    println("Hello \(name)")
+}
+
+func sayHelloTo2(#name:String) {
+    println("Hello \(name)")
+}
+
+func sayHelloTo3(name:String) {
+    println("Hello \(name)")
+}
+
+sayHello()
+sayHelloTo1(nameOfPerson: "Jack")
+sayHelloTo2(name: "John")
+sayHelloTo3("Peter")
+
+
+/////////
+
+func buildIncrementor() -> () -> Int {
+    var count = 0
+    
+    func increment () -> Int {
+        count++
+        return count
+    }
+    
+    return increment
+}
+
+var oneIncrement = buildIncrementor()
+
+oneIncrement()
+oneIncrement()
+oneIncrement()
+
+//////////
+
+func average(#numbers: Int...) -> Int {
+    
+    var total = 0;
+    
+    for n in numbers {
+        total += n
+    }
+    
+    return total / numbers.count
+}
+
+average(numbers: 1,2,3,4,5,6,7)
+
+///////////
+
+func sumAndFloor(valorA: Int, valorB: Int) -> (suma: Int, floor: Int) {
+    
+    var floor = valorA - valorB
+    var suma = valorB - valorA
+    
+    return (floor, suma)
+}
+
+var number = sumAndFloor(50, 25)
+
+number.0
+number.1
+
+number.suma
+number.floor
+
+////////////
+
+
+func double(number: Int) -> Int {
+    return number * 2
+}
+
+func triple(number: Int) -> Int {
+    return number * 3
+}
+
+func modifyInt(#number: Int, #modifier: Int -> Int) -> Int {
+    
+    return modifier(number)
+}
+
+modifyInt(number: 15, modifier: double)
+modifyInt(number: 15, modifier: triple)
+
+
+////////////
+
+
+func joinString(#string: [String]) -> String {
+    var returnStr = ""
+    
+    for str in string {
+        returnStr += str
+    }
+    
+    return returnStr
+}
+
+func joinString (#string: String...) -> String {
+    
+    return joinString(string: string)
+}
+
+var arrayOfStrings = ["I", "am", "a", "array"]
+
+joinString(string: arrayOfStrings)
+joinString(string: "I", "am", "a", "array")
+
+
+////////////
+
+
+func incrementNumber(inout #number : Int, increment : Int = 1) {
+    number += increment
+}
+
+var ourInt = 1
+
+incrementNumber(number: &ourInt)
+ourInt
+
+incrementNumber(number: &ourInt, increment: 10)
+ourInt
