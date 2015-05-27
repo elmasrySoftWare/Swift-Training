@@ -1,0 +1,222 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground: LANGUAGE"
+
+var strVar: String = "Something"
+var someMessage: String
+
+someMessage = "Hello!"
+
+//////////////
+
+let someConstant = "I am a forever constant"
+// someConstant = "let's modify it"  // GIVE US AN ERROR because modifing a let
+
+let formatter = NSDateFormatter()
+formatter.locale = NSLocale.currentLocale();
+formatter.dateFormat = "MM/dd/yyyy"
+
+var newFormatter = NSDateFormatter()
+
+// formatter = newFormatter //GIVE US AN ERROR because modifing a let
+
+//////////
+
+for index in 1...5 {
+    println(index)
+}
+
+////////
+
+for _ in 1...5 {
+    println("hi")
+}
+
+//////
+
+let base = 3
+let power = 10
+var answer = 1
+
+for _ in 1...power {
+    answer *= base
+}
+
+answer
+
+////////
+
+var i : Int
+
+for i = 0; i < 10; i++ {
+    i
+}
+
+i
+
+
+if i < 10 {
+    println("yes it is")
+} else if (i < 20) {
+    println("yes it is less than 20")
+} else {
+    
+}
+
+switch i {
+    case 1, 2, 3:
+        println("it was low")
+    case 8:
+        println("it was 8")
+    default:
+        println("it was none of above")
+}
+
+////////
+
+let count = 3_000_000 // = 3000000
+
+switch count {
+    case 1, 2, 3:
+        println("it was low")
+    case 2_000_000...4_000_000:
+        println("it was between")
+    default:
+        println("it was none of above")
+}
+
+////////
+
+let somePoint1 = (1,1)
+
+switch somePoint1 {
+    case (0,0):
+        println("at the origin")
+    case (_, 0):
+        println("anyone value and 0")
+    case (-2...2, -2...2):
+        println("between these values")
+    default:
+        println("it was none of above")
+}
+
+///////
+
+let somePoint2 = (6,0)
+
+switch somePoint2 {
+    case (let x,0) where x != 2:
+        println("at the origin \(x)")
+        fallthrough // find another match
+    case (_, 0):
+        println("anyone value and 0")
+    case (-2...2, -2...2):
+        println("between -2 and 2")
+    default:
+        println("it was none of above")
+}
+
+///////
+
+let somePoint3 = (2,0)
+
+mainLoop: for i = 0; i < 10; i++ {
+    if i == 2 {
+        continue
+    }
+    
+    mainSwitch: switch somePoint3 {
+    case (2,0):
+        println("at the origin")
+        break mainLoop
+    case (_, 0):
+        println("anyone value and 0")
+    case (-2...2, -2...2):
+        println("between these values")
+    default:
+        println("it was none of above")
+    }
+    
+}
+
+
+///////
+
+var array1: [String] = ["a","b"]
+
+array1.append("c")
+array1.append("d")
+
+array1.insert("e", atIndex: 4)
+
+
+var array2 = ["1","2","3","4","5"]
+
+var array3: [String] = array1 + array2
+
+array3[0...3]
+
+//////////
+
+var someInt: [Int] = [Int]()
+someInt.append(3)
+someInt.count
+someInt = []
+someInt.count
+// someInt.append("hi") GIVE US AN ERROR
+
+////////
+
+var threePis = [Double](count: 3, repeatedValue: 3.14)
+var threeTaus = [Double](count: 3, repeatedValue: 6.283)
+
+threePis + threeTaus
+
+
+//////////
+
+class Dog {
+    var name:String = "pity"
+}
+
+var dog = Dog()
+
+var mixedArray:[AnyObject] = ["3", 2, 1, dog]
+
+for something in mixedArray {
+    if something is Dog {
+        println("There was a dog")
+    }
+}
+
+
+/////////
+
+
+var animalDic = ["Animal1" : "gato" ,"Animal2" : "perro", "Animal3" : "conejo", "Animal4" : "raton"]
+
+for (key, value) in animalDic {
+    println("Nº: \(key) --> Name: \(value)")
+}
+
+animalDic.updateValue("elaphant", forKey: "Animal1")
+animalDic
+
+if let updatedValue = animalDic.updateValue("serpiente", forKey: "Animal2") {
+    println("Fount it")
+} else {
+    println("not found")
+}
+
+animalDic
+
+animalDic["Animal4"] = nil
+animalDic
+
+animalDic.removeValueForKey("Animal3")
+animalDic
+
+Array(animalDic.keys)
+Array(animalDic.values)
