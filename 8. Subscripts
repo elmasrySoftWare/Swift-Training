@@ -1,0 +1,63 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+var str = "Hello, playground: SUBSCRIPTS"
+
+
+
+var someArray = [1,2,3]
+someArray[2]
+
+
+struct TimeTable {
+    let multiplier:Int
+    
+    subscript(index:Int) -> Int {
+        return multiplier * index
+    }
+}
+
+let threeTimeTables = TimeTable(multiplier: 3)
+threeTimeTables[10]
+
+
+//////////////////////
+
+
+func randomizer(#range: Range<UInt32>) -> UInt32 {
+    return range.startIndex + arc4random_uniform(range.endIndex - range.startIndex + 1)
+}
+
+struct LevelMaker {
+    var grid = Array<Array<UInt32>>()
+    
+    mutating func makeGrid() {
+        var numColumns = 27
+        var numRows = 52
+        
+        for column in 0...numColumns {
+            var newRow = Array<UInt32>()
+            
+            for row in 0...numRows {
+                newRow.append(randomizer(range: 1...32))
+            }
+            self.grid.append(newRow)
+        }
+    }
+    
+    subscript(row:Int, column:Int) -> UInt32 {
+        return grid[row][column]
+    }
+    
+    init() {
+        makeGrid()
+    }
+}
+
+var level2 = LevelMaker()
+println(level2.grid)
+
+level2.grid[0]
+
+level2.grid[0][1]
